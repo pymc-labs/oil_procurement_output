@@ -1,0 +1,66 @@
+{
+  "method": "JumpDiffusionModel",
+  "model_variant": "JD-Normal-jumps",
+  "question": "When will the front-month WTI crude oil price return to \u2264$68.26/bbl?",
+  "model_backend": "Bayesian",
+  "forecast_as_of": "2026-06-05",
+  "event_definition": "WTI crude oil price falls_below $68.26/bbl",
+  "threshold_tau": 68.26,
+  "threshold_source": "2025 75th percentile (user-defined)",
+  "crossing_direction": "falls_below",
+  "current_driver_value": 90.54000091552734,
+  "horizon_dates": [
+    "2026-06-08",
+    "2026-06-12",
+    "2026-07-06",
+    "2026-09-07",
+    "2026-12-07",
+    "2027-06-07"
+  ],
+  "p_event_by_horizon": [
+    0.00012733333333333333,
+    0.00112,
+    0.032690666666666666,
+    0.19116133333333332,
+    0.34664066666666665,
+    0.5004706666666666
+  ],
+  "ci_low_by_horizon": [
+    0.0,
+    0.0,
+    0.01594,
+    0.128,
+    0.24,
+    0.348
+  ],
+  "ci_high_by_horizon": [
+    0.002,
+    0.004,
+    0.054,
+    0.262,
+    0.4600599999999995,
+    0.65
+  ],
+  "ci_level": 0.94,
+  "median_days_to_event": 88.0,
+  "p10_days": 28.0,
+  "p90_days": 208.0,
+  "convergence_status": "OK",
+  "rhat_max": 1.0,
+  "ess_bulk_min": 1525.0,
+  "divergence_rate": 0.0,
+  "key_assumptions": [
+    "WTI price follows jump-diffusion: drift \u03bc=0.00194, vol \u03c3=0.059",
+    "Jump probability p=0.075/day (19.0/year)",
+    "Jump size: mean \u03bc_J=-0.025, std \u03c3_J=0.240",
+    "Threshold \u03c4=$68.26 from 2025 75th percentile",
+    "Log-normal price dynamics (removed 2020-04-20 negative price anomaly)",
+    "Stationary jump-diffusion parameters over forecast horizon"
+  ],
+  "key_uncertainties": [
+    "Correct threshold specification (user-defined $68.26)",
+    "Jump vs diffusion decomposition (limited historical jumps \u2192 wide posteriors)",
+    "Regime stationarity (2026 upswing vs 2023-2025 calm)",
+    "Geopolitical shock risk not captured by historical jump distribution"
+  ]
+}

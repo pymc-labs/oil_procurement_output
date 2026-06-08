@@ -1,0 +1,65 @@
+{
+  "method": "ContinuousDriverModel",
+  "model_variant": "OU",
+  "question": "When will the front-month WTI crude oil price return to our defined normalization threshold (WTI \u2264 $68.26/bbl)?",
+  "model_backend": "Bayesian",
+  "forecast_as_of": "2026-06-06",
+  "event_definition": "WTI close falls_below threshold $68.26/bbl",
+  "threshold_tau": 68.26,
+  "threshold_source": "2025 75th percentile (calm-year high baseline)",
+  "crossing_direction": "falls_below",
+  "current_driver_value": 90.54000091552734,
+  "horizon_dates": [
+    "2026-06-08",
+    "2026-06-12",
+    "2026-07-06",
+    "2026-09-07",
+    "2026-12-07",
+    "2027-06-07"
+  ],
+  "p_event_by_horizon": [
+    0.0,
+    0.0,
+    0.024683333333333335,
+    0.23274666666666666,
+    0.44470666666666664,
+    0.65895
+  ],
+  "ci_low_by_horizon": [
+    0.0,
+    0.0,
+    0.0,
+    0.14,
+    0.31,
+    0.49
+  ],
+  "ci_high_by_horizon": [
+    0.0,
+    0.0,
+    0.06,
+    0.34,
+    0.6,
+    0.8202999999999974
+  ],
+  "ci_level": 0.94,
+  "median_days_to_event": 88.0,
+  "p10_days": 30.0,
+  "p90_days": 202.0,
+  "convergence_status": "OK",
+  "rhat_max": 1.0,
+  "ess_bulk_min": 1718.0,
+  "divergence_rate": 0.0,
+  "key_assumptions": [
+    "WTI price follows Ornstein-Uhlenbeck mean-reversion process (log-normal)",
+    "Threshold \u03c4 = $68.26/bbl (2025 75th percentile)",
+    "Event fires when WTI falls_below \u03c4",
+    "Calibration uses full 19-year history (2007\u20132026) to capture regime diversity",
+    "Long-run mean: $70.21/bbl; mean-reversion speed: \u03ba=0.00349"
+  ],
+  "key_uncertainties": [
+    "Mean-reversion assumption: current elevation may persist longer if structural (geopolitical supply disruption)",
+    "Regime stationarity: calibrated dynamics from past regimes may not apply to future shocks",
+    "Threshold definition: sensitivity to $68.26 choice (2025 75th pct; could use other baseline)",
+    "Short-term volatility clustering not fully captured by constant-vol OU (SV variant available)"
+  ]
+}

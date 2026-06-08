@@ -1,0 +1,37 @@
+# Pixi
+.pixi/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.venv/
+
+# Notebooks
+.ipynb_checkpoints/
+.marimo/
+
+# Env / secrets
+.env
+.env.local
+
+# IDE
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# PyMC traces / outputs
+*.nc
+*.netcdf
+*.npz
+*.npy
+trace/
+
+# WRDS / FRED credentials
+.pgpass
+*.pgpass
+fred_api_key.txt
+*_api_key.txt

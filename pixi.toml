@@ -1,0 +1,30 @@
+[workspace]
+name = "oil_procurement_output"
+version = "0.1.0"
+description = "Bayesian forecast of when WTI crude returns to a normal price level"
+channels = ["conda-forge"]
+platforms = ["win-64", "linux-64", "osx-64", "osx-arm64"]
+
+[dependencies]
+python = ">=3.11,<3.13"
+pymc = "*"
+arviz = "*"
+numpy = "*"
+pandas = "*"
+polars = "*"
+scipy = "*"
+matplotlib = "*"
+marimo = "*"
+pytest = "*"
+pyarrow = "*"
+python-dotenv = "*"
+
+[pypi-dependencies]
+wrds = "*"
+yfinance = "*"
+fredapi = "*"
+
+[tasks]
+test = "pytest"
+nb = "marimo edit"
+fetch = "python -m data_loading.fetch_all"

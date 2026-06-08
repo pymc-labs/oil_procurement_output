@@ -1,0 +1,67 @@
+{
+  "method": "ContinuousDriverModel",
+  "model_variant": "OU",
+  "question": "When will the front-month WTI crude oil price return to our defined normalization threshold (WTI \u2264 $68.26/bbl)?",
+  "model_backend": "Bayesian",
+  "forecast_as_of": "2026-06-05",
+  "event_definition": "WTI falls_below threshold \u03c4 = $68.26",
+  "threshold_tau": 68.26,
+  "threshold_source": "2025 75th percentile (user-specified)",
+  "crossing_direction": "falls_below",
+  "current_driver_value": 90.54000091552734,
+  "horizon_dates": [
+    "2026-06-08",
+    "2026-06-12",
+    "2026-07-06",
+    "2026-09-07",
+    "2026-12-07",
+    "2027-06-07"
+  ],
+  "p_event_by_horizon": [
+    0.0,
+    4.666666666666666e-06,
+    0.02821,
+    0.23221133333333333,
+    0.444068,
+    0.662036
+  ],
+  "ci_low_by_horizon": [
+    0.0,
+    0.0,
+    0.014,
+    0.168,
+    0.34,
+    0.524
+  ],
+  "ci_high_by_horizon": [
+    0.0,
+    0.0,
+    0.044,
+    0.304,
+    0.562,
+    0.804
+  ],
+  "ci_level": 0.94,
+  "median_days_to_event": 89.0,
+  "p10_days": 30.0,
+  "p90_days": 203.0,
+  "convergence_status": "OK",
+  "rhat_max": 1.0,
+  "ess_bulk_min": 1772.0,
+  "divergence_rate": 0.0,
+  "key_assumptions": [
+    "WTI follows mean-reverting Ornstein-Uhlenbeck process",
+    "Threshold \u03c4 = $68.26 (2025 75th percentile (user-specified))",
+    "Event fires when WTI falls below \u03c4",
+    "Historical price dynamics (2007-2026) are representative of future behavior",
+    "No structural breaks or regime changes in mean-reversion parameters",
+    "Log-normal price distribution (removed 2 negative price observations)"
+  ],
+  "key_uncertainties": [
+    "Correct threshold \u03c4 \u2014 sensitivity to this choice",
+    "Mean-reversion assumption may not hold if structural regime shift occurred in 2026",
+    "Estimated half-life of ~198 days implies slow reversion",
+    "2026 partial-year shows elevated volatility and higher mean vs 2025",
+    "Geopolitical shocks or supply disruptions could break historical patterns"
+  ]
+}

@@ -1,0 +1,39 @@
+CONTEXT (business decision):
+We are a company whose costs are heavily exposed to crude oil. We are currently facing significant market uncertainty and elevated oil prices, and we need to plan our procurement — specifically, whether to lock in oil supply now at today's high prices, or wait for prices to come back down to a more normal level before committing. To support that decision we need a probabilistic, defensible forecast of WHEN the oil price will return to a normal level, with credible intervals at several planning horizons.
+
+TASK:
+Forecast when the front-month WTI crude oil price will return to our defined normalization threshold, using the provided market data as the observable signal.
+
+EVENT / RESOLUTION CRITERION:
+Define "normalized by horizon t" as: the WTI front-month close has fallen to or below 68.26 USD/bbl (the 75th percentile of the 2025 calendar-year WTI distribution) and stayed there. WTI is currently elevated (~$90.54 at T0) relative to its 2025 baseline (2025 mean ~$65, 75th percentile ~$68.26, range ~$55–$80). The current elevation is treated purely as a market dislocation in the price level — model it as a time-series / mean-reversion phenomenon, not as any specific external event. Each forecaster must:
+  - State and justify its exact operational threshold (anchored at WTI <= $68.26).
+  - Calibrate baseline price dynamics (drift, mean-reversion speed, volatility, jump frequency and jump-size behaviour) from the FULL ~19-year daily history now provided (2007-07-30 .. 2026-06-05). This long record spans several distinct crude-oil regimes — the 2008 global-financial-crisis price collapse, the 2014–2016 oversupply decline, the 2020 COVID demand shock (including the historic negative-price episode), the 2022 supply-shock spike, and the calmer 2024–2025 baseline. Use this long history to characterise "normal" dynamics, the empirical distribution of large moves/jumps, and the speed and reliability of mean reversion. You MUST justify your calibration window: if you down-weight, exclude, or regime-split any part of the history (e.g. treat the COVID negative-price period as an outlier, or weight recent years more heavily), state exactly what you did and why, and report sensitivity to that choice.
+  - Validate out-of-sample. Run a time-slice (walk-forward / expanding-window) cross-validation or an out-of-sample coverage check: hold out one or more trailing time slices before T0, refit on the earlier data only, and report how often the realized WTI path fell inside your predicted credible intervals (empirical vs nominal coverage / calibration). State the holdout scheme and the slices used, report whether roughly 94% of held-out points land in the 94% band, and flag any material miscalibration and how it tempers confidence in the headline horizons.
+  - Choose the method best supported by the data structure; if it uses a first-passage / threshold-crossing formulation it must map the result to P(WTI <= $68.26 by horizon) on the horizon grid below.
+
+FORECAST ORIGIN:
+T0 = 2026-06-05 (WTI ~$90.54, OVX ~59.79). Measure all horizons forward from T0. Use observations up to and including 2026-06-05 for fitting; treat any rows dated after 2026-06-05 as out-of-sample and exclude them from calibration.
+
+HORIZONS (report P(normalized, i.e. WTI <= $68.26, by) with a credible interval at each):
+  - 1 day    (~2026-06-08, next trading day)
+  - 1 week   (~2026-06-12)
+  - 1 month  (~2026-07-06)
+  - 3 months (~2026-09-07)
+  - 6 months (~2026-12-07)
+  - 12 months (~2027-06-07)
+Note: the 1-day and 1-week horizons are deliberately short — report them honestly even if the probability is near zero, and let the credible interval reflect the very limited room for the price to fall ~24% over such a short window.
+
+DATA PROVIDED (data/raw/*.parquet) — all daily, spanning 2007-07-30 .. 2026-06-05 (~19 years; oil_futures and a few series may extend a few trading days further — ignore rows after 2026-06-05 for fitting per the FORECAST ORIGIN note above):
+  - oil_futures.parquet     — columns [date, wti_open, wti_close, wti_volume, brent_close, brent_volume]; WTI front-month close is the primary series to forecast.
+  - ovx.parquet             — columns [date, ovx]; CBOE crude-oil volatility index (market-implied uncertainty about oil).
+  - sp500.parquet           — columns [date, spindx, sprtrn, vwretd, ewretd, source]; S&P 500 level + returns (broad risk / demand backdrop).
+  - asian_indices.parquet   — columns [date, kospi, nikkei, topix]; Asian equity indices (demand-side macro proxy).
+  - tanker_equities.parquet — long format [date, permno, ticker, prc, ret, vol, shrout, source]; a basket of energy-transport equities (additional market context).
+
+WHAT TO DELIVER:
+  - Run several structurally different methods in parallel; each picks the method best supported by the data and states its assumptions, threshold, calibration window, and convergence diagnostics.
+  - A time-slice cross-validation / out-of-sample coverage check for the chosen method (see the EVENT / RESOLUTION CRITERION above): report the holdout scheme and the empirical-vs-nominal interval coverage, and note any miscalibration.
+  - For each horizon (1 day, 1 week, 1 month, 3 months, 6 months, 12 months): a headline P(WTI <= $68.26) with a credible interval, plus the posterior median time-to-threshold and its interval (conditional on reaching it within the window) and P(not reaching $68.26 within 12 months).
+  - A consolidated synthesis: where the methods CONVERGE (evidence the answer is robust) and where they DIVERGE (and what drives the disagreement).
+  - Be explicit about what the data cannot tell us and what additional data would sharpen the forecast.
+  - A short PROCUREMENT-PLANNING READ: given these probabilities, what do they imply for the decision to lock in oil supply now versus wait for prices to fall — including the trade-off between the chance prices normalize soon and the risk they stay elevated.

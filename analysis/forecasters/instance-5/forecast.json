@@ -1,0 +1,66 @@
+{
+  "method": "JumpDiffusionModel",
+  "model_variant": "JD-Normal-jumps",
+  "question": "When will the front-month WTI crude oil price return to our defined normalization threshold (WTI \u2264 $68.26/bbl)?",
+  "model_backend": "Bayesian",
+  "forecast_as_of": "2026-06-05",
+  "event_definition": "WTI crude oil price falls to \u2264 $68.26/bbl",
+  "threshold_tau": 68.26,
+  "threshold_source": "2025 75th percentile (user-specified)",
+  "crossing_direction": "falls_below",
+  "current_driver_value": 90.54,
+  "horizon_dates": [
+    "2026-06-08",
+    "2026-06-12",
+    "2026-07-06",
+    "2026-09-07",
+    "2026-12-07",
+    "2027-06-07"
+  ],
+  "p_event_by_horizon": [
+    0.000126,
+    0.001052,
+    0.03263666666666667,
+    0.19094533333333333,
+    0.34643066666666666,
+    0.4992586666666667
+  ],
+  "ci_low_by_horizon": [
+    0.0,
+    0.0,
+    0.016,
+    0.12994,
+    0.23994,
+    0.346
+  ],
+  "ci_high_by_horizon": [
+    0.002,
+    0.004,
+    0.054,
+    0.262,
+    0.466,
+    0.656
+  ],
+  "ci_level": 0.94,
+  "median_days_to_event": 88.0,
+  "p10_days": 28.0,
+  "p90_days": 208.0,
+  "convergence_status": "MARGINAL",
+  "rhat_max": 1.01,
+  "ess_bulk_min": 1654.0,
+  "divergence_rate": 0.0,
+  "key_assumptions": [
+    "WTI follows a jump-diffusion: drift \u03bc=0.0020, vol \u03c3=0.0588, jump prob p=0.075/day",
+    "Jump sizes ~ Normal(\u03bc_J=-0.025, \u03c3_J=0.240); \u22641 jump per day",
+    "Threshold \u03c4 = $68.26/bbl (2025 75th pct); event fires when WTI falls to \u2264 \u03c4",
+    "Calibrated on 19yr history (2007-2026) excluding COVID negative price anomaly",
+    "Stationarity: jump-diffusion parameters assumed constant over forecast horizon"
+  ],
+  "key_uncertainties": [
+    "Threshold accuracy: $68.26 is 2025 75th pct but may not reflect 2026 'normal' level",
+    "Jump intensity and scale: limited data to separate jumps from heavy-tailed diffusion",
+    "EVT cross-check: WARN: >10pp discrepancy",
+    "Regime shifts: current 2026 upswing may be transient or new regime",
+    "Geopolitical shocks not in historical data (e.g., major supply disruptions)"
+  ]
+}

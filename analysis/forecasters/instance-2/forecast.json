@@ -1,0 +1,73 @@
+{
+  "method": "JumpDiffusionModel",
+  "model_variant": "JD-Normal-jumps",
+  "question": "When will the front-month WTI crude oil price return to our defined normalization threshold (WTI \u2264 $68.26/bbl)?",
+  "model_backend": "Bayesian",
+  "forecast_as_of": "2026-06-05",
+  "event_definition": "WTI crude oil price falls_below threshold $68.26/bbl",
+  "threshold_tau": 68.26,
+  "threshold_source": "2025 75th percentile (user-specified normalization threshold)",
+  "crossing_direction": "falls_below",
+  "current_driver_value": 90.54000091552734,
+  "horizon_dates": [
+    "2026-06-08",
+    "2026-06-12",
+    "2026-07-06",
+    "2026-09-07",
+    "2026-12-07",
+    "2027-06-07"
+  ],
+  "p_event_by_horizon": [
+    2.6666666666666667e-05,
+    0.0010533333333333334,
+    0.032814444444444445,
+    0.18729444444444446,
+    0.34379777777777776,
+    0.4912011111111111
+  ],
+  "ci_low_by_horizon": [
+    0.0,
+    0.0,
+    0.013333333333333334,
+    0.12,
+    0.23666666666666666,
+    0.34
+  ],
+  "ci_high_by_horizon": [
+    0.0,
+    0.006666666666666667,
+    0.056666666666666664,
+    0.26666666666666666,
+    0.4600999999999992,
+    0.6466666666666666
+  ],
+  "ci_level": 0.94,
+  "median_days_to_event": 87.0,
+  "p10_days": 28.0,
+  "p90_days": 201.0,
+  "convergence_status": "OK",
+  "rhat_max": 1.0,
+  "ess_bulk_min": 1710.0,
+  "divergence_rate": 0.0,
+  "n_observations": 4743,
+  "n_excluded": 1,
+  "jump_prob_mean": 0.07548320503429391,
+  "jump_prob_std": 0.008528802385855171,
+  "evt_xi": 0.2667531486346777,
+  "evt_beta": 0.04835905869906295,
+  "key_assumptions": [
+    "WTI crude oil follows a jump-diffusion process (drift \u03bc, vol \u03c3, jump prob ~0.075/day)",
+    "Jump sizes ~ Normal(\u03bc_J, \u03c3_J); at most 1 jump per day (standard small-dt approximation)",
+    "Threshold \u03c4 = $68.26/bbl (2025 75th percentile (user-specified normalization threshold)); event fires when WTI \u2264 \u03c4",
+    "2020-04-20 negative price anomaly excluded from model fitting",
+    "Log-normal price dynamics (strictly positive)",
+    "Trading-day based simulation; ~252 trading days per year"
+  ],
+  "key_uncertainties": [
+    "Threshold correctness - most important sensitivity (user-specified $68.26)",
+    "Jump component identifiability - few large discrete shocks in data vs many small moves",
+    "Regime stationarity - will 19-year jump-diffusion parameters hold over forecast horizon?",
+    "EVT cross-check: EVT vs MC difference >10pp",
+    "Oil market structural changes (energy transition, geopolitics) not in historical data"
+  ]
+}
