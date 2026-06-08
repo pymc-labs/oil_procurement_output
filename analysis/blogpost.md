@@ -417,7 +417,7 @@ dlab --dpack decision-packs/event-forecaster \
 **Links:**
 - [decision-lab](https://github.com/pymc-labs/decision-lab): the framework
 - [Event-forecaster decision pack](https://github.com/pymc-labs/decision-lab/pull/34): the pack used here
-- [This analysis (data + outputs)](https://github.com/pymc-labs/strait_of_hormuz_opening/pull/15): full reproducible run
+- [This analysis (data + outputs)](https://github.com/pymc-labs/oil_procurement_output): full reproducible run
 
 ---
 
