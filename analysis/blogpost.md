@@ -348,6 +348,8 @@ Overlaying all five forecasters' normalization curves shows both patterns at onc
 ![Forest plot](figures/11_forest_p3mo.png)
 *Forest plot showing each forecaster's point estimate and 94% credible interval for P(normalization by 3 months). The intervals overlap heavily: the posterior uncertainty within any single forecaster dwarfs the differences between forecasters. The dashed line marks the headline estimate (23.3%).*
 
+> **How independent are the five, really?** A fair caveat: all five share the same backbone model (Claude Sonnet 4.5), the same prompt, and the same method library, so "all five agreed" is weaker than five independent verdicts. What the ensemble still buys is a view of where the task is genuinely under-determined: here the agents split on pure OU versus added jumps (a ~15pp gap at 12 months), and an earlier run threw up a much higher HazardModel outlier, disagreements a single run would have hidden.
+
 ### Out-of-sample validation: do the intervals hold up?
 
 This run added a check the earlier iterations did not have: each forecaster validates its model with **time-slice cross-validation**. The idea is simple: pretend you're standing at an earlier point in history, refit the model on data up to that point only, then check how often the prices that *actually* followed fell inside the model's predicted intervals. A well-calibrated 94% interval should contain about 94% of the held-out points.
